@@ -1,0 +1,60 @@
+"""Anna pupko,321204182
+Alina korochkin 321108391"""
+
+
+import sympy as sp
+
+def bisection(func,start_point , end_point ,eps):
+    if (func(start_point ) * func(end_point ) >= 0):
+        print("no root found\n")
+        return
+    real_root=0
+    c=start_point
+    iterations = 0
+    while ((end_point  - start_point ) >= eps ):
+        current_iteration_print = "Iteration: {0},".format(iterations)
+
+
+        c = (start_point  + end_point ) / 2
+
+
+        if (func(c) == 0.0):
+            break
+
+
+        if (func(c) * func(start_point ) < 0):
+            end_point  = c
+        else:
+            start_point  = c
+
+        current_iteration_print += "  root approximation: {0},".format(c)
+        if real_root != None:
+            current_iteration_print += "  real root: {0}".format(abs(real_root - c))
+        print(current_iteration_print)
+        iterations = iterations + 1
+    if real_root != None:
+        print("Final approximation: {0},  real root: {1}".format(c, abs(real_root - c)))
+    else:
+        print("Final approximation: {0}".format(c))
+    return c
+
+
+
+
+
+
+def f1(x):
+    return x**3+2*x+5
+
+bisection(f1,-3, 0 ,0.0001)
+print("\n\n")
+bisection(f1,-1000 ,5000,0.0001)
+
+
+def f2(x):
+    x1 =sp.symbols('x')
+    my_f=x**3+2*x+5
+    return sp.diff(my_f,x1)
+
+print("\n\n")
+bisection(f2,-3, 2,0.0001)
